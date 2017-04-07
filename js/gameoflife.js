@@ -7,8 +7,6 @@ var HEIGHT	= ROWS * SCALE;
 var SPEED	= 100;
 var FILLING_RATE = 40;
 
-
-var population = [];
 var EMPTY	= 0;
 var FULL	= 1;
 
@@ -17,7 +15,42 @@ var gridCanvas, gridContext;
 var populationCanvas, populationContext;
 var frames;
 
+var population = {
+	
+	grid: null,
+	
+	init: function() {
+		
+		this.grid = [];
+		for ( var x = 0; x < COLUMNS; x++ ) {
+			this.grid.push([]);
+			for ( var y = 0; y < ROWS; y++ ) {
+				var random = Math.floor(Math.random() * 100); // entre 0 et 99, bornes incluses
+
+				if (random < FILLING_RATE) {
+					this.grid[x].push(FULL);
+				} else {
+					this.grid[x].push(EMPTY);
+				}
+			}
+		}
+	},
+	
+	freeCell: function(x, y) {
+		this.grid[x][y] = EMPTY;
+	},
+	
+	fillCell: function(x, y) {
+		this.grid[x][y] = FULL;
+	},
+
+	get: function(x, y) {
+		return this.grid[x][y];	
+	}
+}
+
 function main() {
+
 	gridCanvas = document.createElement("canvas");
 	gridCanvas.width = WIDTH;
 	gridCanvas.height = HEIGHT;
@@ -31,27 +64,20 @@ function main() {
 	document.getElementById("gameoflife").appendChild(populationCanvas);
 
 	frames = 0;
-	
+
 	init();
 	loop();
 }
 
 function init() {
+	population.init();
 	drawGrid();
-	populateRandomly();
-
-	for ( var x = 0; x < COLUMNS; x++ ) {
-		for ( var y = 0; y < ROWS; y++ ) {
-			console.log(population[x][y]);
-		}
-	}
-	
+	drawPopulation();	
 }
 
 function loop() {
 	update();
 	//draw();
-
 	
 	window.requestAnimationFrame(loop, populationCanvas);
 }
@@ -62,19 +88,16 @@ function update() {
 
 }
 
-function populateRandomly() {
+function drawPopulation() {
 	
 	for ( var x = 0; x < COLUMNS; x++ ) {
-		population.push([]);
 		for ( var y = 0; y < ROWS; y++ ) {
 			
-			var random = Math.floor(Math.random() * 100); // entre 0 et 99 bornes incluses
-
-			if (random < FILLING_RATE) {
+			console.log(population.get(x, y));
+			
+			if (population.get(x, y) == FULL) {
 				populationContext.fillStyle = "#c4cbf7";
 				populationContext.fillRect( x * SCALE, y * SCALE, SCALE, SCALE );
-				
-				population.push(FULL);
 			}
 		}
 	}
