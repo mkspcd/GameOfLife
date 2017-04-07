@@ -1,25 +1,35 @@
 // Constantes
-var WIDTH	= 900;
-var HEIGHT	= 600;
-var SIZE	= 30;
-var COLUMNS	= WIDTH / SIZE;
-var ROWS	= HEIGHT / SIZE;
-
+var COLUMNS	= 30;
+var ROWS	= 20;
+var SCALE	= 30;
+var WIDTH	= COLUMNS * SCALE;
+var HEIGHT	= ROWS * SCALE;
 var SPEED	= 100;
+var FILLING_RATE = 40;
 
 
-var population;
+var population = [];
+var EMPTY	= 0;
+var FULL	= 1;
 
 // Project objects
-var canvas, context, frames;
+var gridCanvas, gridContext;
+var populationCanvas, populationContext;
+var frames;
 
 function main() {
-	canvas = document.createElement("canvas");
-	canvas.width = WIDTH;
-	canvas.height = HEIGHT;
-	context = canvas.getContext("2d");
-	document.getElementById("gameoflife").appendChild(canvas);
+	gridCanvas = document.createElement("canvas");
+	gridCanvas.width = WIDTH;
+	gridCanvas.height = HEIGHT;
+	gridContext = gridCanvas.getContext("2d");
+	document.getElementById("gameoflife").appendChild(gridCanvas);
 	
+	populationCanvas = document.createElement("canvas");
+	populationCanvas.width = WIDTH;
+	populationCanvas.height = HEIGHT;
+	populationContext = populationCanvas.getContext("2d");
+	document.getElementById("gameoflife").appendChild(populationCanvas);
+
 	frames = 0;
 	
 	init();
@@ -28,36 +38,43 @@ function main() {
 
 function init() {
 	drawGrid();
-	randomDraw();
+	populateRandomly();
 
+	for ( var x = 0; x < COLUMNS; x++ ) {
+		for ( var y = 0; y < ROWS; y++ ) {
+			console.log(population[x][y]);
+		}
+	}
+	
 }
 
 function loop() {
 	update();
-	draw();
+	//draw();
+
 	
-	window.requestAnimationFrame(loop, canvas);
+	window.requestAnimationFrame(loop, populationCanvas);
 }
 
 function update() {
+
+	//populationContext.clearRect(0, 0, WIDTH, HEIGHT);
+
 }
 
-function draw() {
-}
-
-function randomDraw() {
+function populateRandomly() {
 	
 	for ( var x = 0; x < COLUMNS; x++ ) {
+		population.push([]);
 		for ( var y = 0; y < ROWS; y++ ) {
 			
-			var random = Math.floor(Math.random() * 10);
-			console.log(random);
-			
-			if (random <= 2) {
-				context.fillStyle = "#FFFFFF";
-				context.strokeStyle = "#DBDEF0";
-				//context.stroke();
-				context.fillRect( x * SIZE, y * SIZE, SIZE, SIZE );
+			var random = Math.floor(Math.random() * 100); // entre 0 et 99 bornes incluses
+
+			if (random < FILLING_RATE) {
+				populationContext.fillStyle = "#c4cbf7";
+				populationContext.fillRect( x * SCALE, y * SCALE, SCALE, SCALE );
+				
+				population.push(FULL);
 			}
 		}
 	}
@@ -65,17 +82,17 @@ function randomDraw() {
 
 
 function drawGrid() {
-	for (x = SIZE; x < WIDTH; x += SIZE) {
-		context.moveTo(x, 0);
-		context.lineTo(x, HEIGHT);
-		for (y = SIZE; y < HEIGHT; y += SIZE) {
-			context.moveTo(0, y);
-			context.lineTo(WIDTH, y);
+	for (x = SCALE; x < WIDTH; x += SCALE) {
+		gridContext.moveTo(x, 0);
+		gridContext.lineTo(x, HEIGHT);
+		
+		for (y = SCALE; y < HEIGHT; y += SCALE) {
+			gridContext.moveTo(0, y);
+			gridContext.lineTo(WIDTH, y);
 		}
 	}
-	context.strokeStyle = "#828DCE";
-	context.lineWidth = 1;
-	context.stroke();
+	gridContext.strokeStyle = "#828DCE";
+	gridContext.stroke();
 }
 
 
