@@ -1,7 +1,7 @@
 // Constantes
 var WIDTH	= 900;
 var HEIGHT	= 600;
-var SCALE	= 20;
+var SCALE	= 30;
 var COLUMNS	= WIDTH / SCALE;
 var ROWS	= HEIGHT / SCALE;
 var SPEED	= 100;
@@ -14,6 +14,7 @@ var FULL	= 1;
 var gridCanvas, gridContext;
 var populationCanvas, populationContext;
 var frames;
+var nextGeneration;
 
 var population = {
 	
@@ -45,13 +46,21 @@ var population = {
 	},
 
 	get: function(x, y) {
-		return this.grid[x][y];	
+		return this.grid[x][y];
+	},
+	
+	isFree: function(x, y) {
+		return this.grid[x][y] == 0 ? true : false ;
 	},
 	
 	neighbours: function(x, y) {
 		var count = 0;
 		
-		
+		for ( var x = 0; x < COLUMNS; x++ ) {
+			for ( var y = 0; y < ROWS; y++ ) {
+				
+			}
+		}
 		
 		return count;
 	}
