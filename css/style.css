@@ -1,11 +1,14 @@
 
 @font-face {
-  font-family: 'Early GameBoy';
-  src: url('../font/Early-GameBoy.woff') format('woff'),
-       url('../font/Early-GameBoy.ttf') format('truetype'),
-       url('../font/Early-GameBoy.svg#Early-GameBoy') format('svg');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'Early GameBoy';
+    src: url('../font/early_gameboy.eot');
+    src: url('../font/early_gameboy.eot?#iefix') format('embedded-opentype'),
+         url('../font/early_gameboy.woff2') format('woff2'),
+         url('../font/early_gameboy.woff') format('woff'),
+         url('../font/early_gameboy.ttf') format('truetype'),
+         url('../font/early_gameboy.svg#early_gameboyregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 body {
@@ -24,10 +27,64 @@ body {
 	transform: translate(-50%, -50%);
 }
 
-#buttons {
+#button {
+	position: absolute;
+}
+
+.button {
 	font-family: 'Early GameBoy', sans-serif;
-	color: #efefef;
-	font-size: 1.5em;
+	color: #f5f5f5;
+	font-size: 1.2em;
+	background-color: #6D7AC6;
+	border: none;
+	width: 180px;
+	padding: 0.3em 1.5em;
+	margin-bottom: 20px;
+	margin-left: 15px;
+	text-align: center;
+	text-decoration: none;
+	position: relative;
+	-moz-box-shadow: 0px 5px 12px 0px #383a8e;
+	-webkit-box-shadow: 0px 5px 12px 0px #383a8e;
+	-o-box-shadow: 0px 5px 12px 0px #383a8e;
+	box-shadow: 0px 5px 12px 0px #383a8e;
+	 -webkit-transition-duration: 0.5s;
+	transition-property: background-color;
+    transition-duration: 0.5s;
+}
+
+.button.start span:after {
+  content: '~';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button.start span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button.start:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.button:hover {
+	background-color: #616db1;
+	cursor: pointer;
+}
+
+.button:active {
+	transform: translateY(2px);
 }
 
 #gameoflife {

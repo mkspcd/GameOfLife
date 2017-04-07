@@ -1,9 +1,9 @@
 // Constantes
-var COLUMNS	= 30;
-var ROWS	= 20;
-var SCALE	= 30;
-var WIDTH	= COLUMNS * SCALE;
-var HEIGHT	= ROWS * SCALE;
+var WIDTH	= 900;
+var HEIGHT	= 600;
+var SCALE	= 20;
+var COLUMNS	= WIDTH / SCALE;
+var ROWS	= HEIGHT / SCALE;
 var SPEED	= 100;
 var FILLING_RATE = 40;
 
@@ -46,6 +46,14 @@ var population = {
 
 	get: function(x, y) {
 		return this.grid[x][y];	
+	},
+	
+	neighbours: function(x, y) {
+		var count = 0;
+		
+		
+		
+		return count;
 	}
 }
 
