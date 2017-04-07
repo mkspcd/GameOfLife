@@ -1,0 +1,18 @@
+@font-face {
+  font-family: 'Early GameBoy';
+  src: url('Early GameBoy.eot');
+  src: url('Early GameBoy.woff2') format('woff2'),
+       url('Early GameBoy.eot?#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Early-GameBoy';
+  src: url('Early-GameBoy.woff') format('woff'),
+       url('Early-GameBoy.ttf') format('truetype'),
+       url('Early-GameBoy.svg#Early-GameBoy') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+

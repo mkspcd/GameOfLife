@@ -93,11 +93,9 @@ function drawPopulation() {
 	for ( var x = 0; x < COLUMNS; x++ ) {
 		for ( var y = 0; y < ROWS; y++ ) {
 			
-			console.log(population.get(x, y));
-			
 			if (population.get(x, y) == FULL) {
 				populationContext.fillStyle = "#c4cbf7";
-				populationContext.fillRect( x * SCALE, y * SCALE, SCALE, SCALE );
+				populationContext.fillRect( x * SCALE, y * SCALE, SCALE, SCALE );				
 			}
 		}
 	}
